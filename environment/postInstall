@@ -1,0 +1,24 @@
+apt-get update
+apt-get install build-essential ca-certificates default-jre libz-dev pigz vim wget -y
+
+conda update conda -y && conda update --all -y
+conda install -c conda-forge mamba -y
+mamba install -c bioconda fastqc -y
+
+# Code Ocean Aux Tools
+pip install -i https://test.pypi.org/simple/ Code-Ocean-Aux-Tools
+pip install multiqc
+
+# fastp
+mkdir -p /opt && cd /opt
+wget http://opengene.org/fastp/fastp
+chmod a+x ${PWD}/fastp
+ln -s ${PWD}/fastp /usr/local/bin
+
+# Simulated reads generator
+mkdir -p /opt && cd /opt
+git clone https://github.com/lh3/wgsim.git
+cd wgsim
+gcc -g -O2 -Wall -o wgsim wgsim.c -lz -lm
+ln -s ${PWD}/wgsim /usr/local/bin
+
